@@ -1,42 +1,104 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* Definindo estilo básico para o corpo */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container principal */
+.App {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Estilo do título principal */
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Estilizando o input de busca */
+input[type='text'] {
+  padding: 10px;
+  width: 80%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  outline: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* Mudando a borda do input ao focar */
+input[type='text']:focus {
+  border-color: #007bff;
 }
 
-.card {
-  padding: 2em;
+/* Estilo do botão */
+button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.read-the-docs {
-  color: #888;
+/* Alterando a cor do botão ao passar o mouse */
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Desativando o botão quando em estado de carregamento */
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Estilo dos artigos */
+div article {
+  background-color: #f9f9f9;
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+/* Estilo do título dos artigos */
+h3 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Estilo do resumo dos artigos */
+p {
+  color: #555;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Estilo do link */
+a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Alteração da cor do link ao passar o mouse */
+a:hover {
+  color: #0056b3;
+  text-decoration: underline;
 }
