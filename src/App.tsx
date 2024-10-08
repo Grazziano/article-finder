@@ -5,7 +5,8 @@ type SearchPlatform =
   | 'arXiv'
   | 'Google Scholar'
   | 'IEEE'
-  | 'ACM Digital Library';
+  | 'ACM Digital Library'
+  | 'PubMed';
 
 function App() {
   const [query, setQuery] = useState<string>(''); // String de busca
@@ -28,6 +29,8 @@ function App() {
       `https://dl.acm.org/action/doSearch?AllField=${encodeURIComponent(
         query
       )}`,
+    PubMed: (query: string) =>
+      `https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(query)}`,
   };
 
   // Função para redirecionar para a plataforma selecionada
@@ -63,6 +66,7 @@ function App() {
         <option value="Google Scholar">Google Scholar</option>
         <option value="IEEE">IEEE Xplore</option>
         <option value="ACM Digital Library">ACM Digital Library</option>
+        <option value="PubMed">PubMed</option>{' '}
       </select>
 
       <button onClick={searchArticles} disabled={loading}>
