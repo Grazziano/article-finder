@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { SearchPlatform } from './interfaces/SearchPlatform';
 import { SearchHistory } from './interfaces/SearchHistory';
 import SearchPage from './pages/SearchPage';

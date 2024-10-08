@@ -1,4 +1,4 @@
-import React from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import {
   Button,
   Input,
@@ -10,12 +10,13 @@ import {
   FormControl,
   FormLabel,
 } from '@chakra-ui/react';
+import { SearchPlatform } from '../interfaces/SearchPlatform';
 
 interface SearchPageProps {
   query: string;
-  setQuery: (value: string) => void;
-  platform: string;
-  setPlatform: (value: string) => void;
+  setQuery: Dispatch<SetStateAction<string>>;
+  platform: SearchPlatform; // Certifique-se de que o tipo esteja correto
+  setPlatform: Dispatch<SetStateAction<SearchPlatform>>; // Mude aqui
   searchArticles: () => void;
   loading: boolean;
 }
@@ -28,6 +29,12 @@ const SearchPage: React.FC<SearchPageProps> = ({
   searchArticles,
   loading,
 }) => {
+  const handlePlatformChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setPlatform(event.target.value as SearchPlatform); // Aqui você garante que o valor é do tipo correto
+  };
+
   return (
     <Box bg="gray.50" p={8} rounded="md" shadow="md" maxW="xl" mx="auto">
       <Heading as="h1" size="xl" mb={6} textAlign="center" color="teal.600">
@@ -57,7 +64,7 @@ const SearchPage: React.FC<SearchPageProps> = ({
         <Select
           placeholder="Selecione a plataforma"
           value={platform}
-          onChange={(e) => setPlatform(e.target.value)}
+          onChange={handlePlatformChange}
           size="lg"
           focusBorderColor="teal.400"
           bg="white"
