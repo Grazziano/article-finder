@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { SearchPlatform } from './interfaces/SearchPlatform';
 import { SearchHistory } from './interfaces/SearchHistory';
 import SearchPage from './pages/SearchPage';
@@ -123,7 +123,7 @@ function App() {
   };
 
   return (
-    <Router>
+    <>
       <Navbar />
       <Container maxW="5xl" mt={5}>
         {loading ? (
@@ -176,7 +176,7 @@ function App() {
           </Routes>
         )}
       </Container>
-    </Router>
+    </>
   );
 }
 
