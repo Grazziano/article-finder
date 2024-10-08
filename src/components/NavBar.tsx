@@ -2,7 +2,7 @@ import {
   Box,
   Flex,
   HStack,
-  Link,
+  // Link,
   IconButton,
   // Button,
   useDisclosure,
@@ -10,6 +10,7 @@ import {
   Image,
   Text,
 } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import PaperImg from '../assets/images/paper.png';
 
@@ -28,14 +29,14 @@ const NavLink = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <Link
-      px={2}
-      py={1}
-      rounded={'md'}
-      _hover={{
-        textDecoration: 'none',
-        bg: 'gray.200',
-      }}
-      href={link}
+      // px={2}
+      // py={1}
+      // rounded={'md'}
+      // _hover={{
+      //   textDecoration: 'none',
+      //   bg: 'gray.200',
+      // }}
+      to={link}
     >
       {children}
     </Link>
