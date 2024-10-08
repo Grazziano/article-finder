@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import GrayHearth from './assets/images/icons/gray_hearth.svg';
+import RedHearth from './assets/images/icons/red_hearth.svg';
 import './App.css';
 
 type SearchPlatform =
@@ -11,6 +13,7 @@ type SearchPlatform =
 interface SearchHistory {
   query: string;
   platform: SearchPlatform;
+  url: string; // Adiciona a URL ao histórico
 }
 
 function App() {
@@ -18,6 +21,7 @@ function App() {
   const [platform, setPlatform] = useState<SearchPlatform>('arXiv'); // Plataforma selecionada
   const [loading, setLoading] = useState<boolean>(false); // Estado de carregamento
   const [history, setHistory] = useState<SearchHistory[]>([]); // Histórico de buscas
+  const [favorites, setFavorites] = useState<SearchHistory[]>([]); // Artigos favoritos
 
   // URLs de busca para cada plataforma
   const platformUrls = {
@@ -45,6 +49,11 @@ function App() {
     if (savedHistory) {
       setHistory(JSON.parse(savedHistory));
     }
+
+    const savedFavorites = localStorage.getItem('favorites');
+    if (savedFavorites) {
+      setFavorites(JSON.parse(savedFavorites));
+    }
   }, []);
 
   // Função para redirecionar para a plataforma selecionada
@@ -61,10 +70,8 @@ function App() {
 
     // Atualiza o histórico de buscas
     setHistory((prevHistory) => {
-      const updatedHistory = [
-        { query, platform }, // Adiciona a nova pesquisa com plataforma
-        ...prevHistory,
-      ];
+      const newEntry = { query, platform, url: searchUrl }; // Adiciona a nova pesquisa com plataforma e URL
+      const updatedHistory = [newEntry, ...prevHistory];
       localStorage.setItem('searchHistory', JSON.stringify(updatedHistory)); // Salva no localStorage
       return updatedHistory;
     });
@@ -81,8 +88,34 @@ function App() {
 
   // Função para redirecionar para a pesquisa do histórico
   const redirectFromHistory = (item: SearchHistory) => {
-    const searchUrl = platformUrls[item.platform](item.query);
-    window.open(searchUrl, '_blank');
+    window.open(item.url, '_blank');
+  };
+
+  // Função para alternar o estado do favorito
+  const toggleFavorite = (item: SearchHistory) => {
+    setFavorites((prevFavorites) => {
+      const isFavorite = prevFavorites.find((fav) => fav.query === item.query);
+      let updatedFavorites;
+
+      if (isFavorite) {
+        // Se já é favorito, remove-o
+        updatedFavorites = prevFavorites.filter(
+          (fav) => fav.query !== item.query
+        );
+      } else {
+        // Caso contrário, adiciona aos favoritos
+        updatedFavorites = [...prevFavorites, item];
+      }
+
+      localStorage.setItem('favorites', JSON.stringify(updatedFavorites)); // Salva os favoritos no localStorage
+      return updatedFavorites;
+    });
+  };
+
+  // Função para limpar os favoritos
+  const clearFavorites = () => {
+    setFavorites([]);
+    localStorage.removeItem('favorites'); // Remove os favoritos do localStorage
   };
 
   return (
@@ -117,22 +150,76 @@ function App() {
           <h2>Histórico de Pesquisas</h2>
           <ul>
             {history.map((item, index) => (
-              <li
-                key={index}
-                onClick={() => redirectFromHistory(item)}
-                style={{
-                  cursor: 'pointer',
-                  color: '#007bff',
-                  textDecoration: 'underline',
-                }}
-              >
-                {item.query} - {item.platform}
+              <li key={index}>
+                <span
+                  onClick={() => redirectFromHistory(item)}
+                  style={{
+                    cursor: 'pointer',
+                    color: '#007bff',
+                    textDecoration: 'underline',
+                  }}
+                >
+                  {item.query} - {item.platform}
+                </span>
+                {/* <button
+                  className="btn-favorite"
+                  onClick={() => toggleFavorite(item)}
+                >
+                  <img
+                    src={
+                      favorites.find((fav) => fav.query === item.query)
+                        ? RedHearth
+                        : GrayHearth
+                    }
+                    alt=""
+                  />
+                </button> */}
+                {favorites.find((fav) => fav.query === item.query) ? (
+                  <button
+                    className={`btn-favorite active`}
+                    onClick={() => toggleFavorite(item)}
+                  >
+                    <img src={RedHearth} alt="" />
+                  </button>
+                ) : (
+                  <button
+                    className="btn-favorite"
+                    onClick={() => toggleFavorite(item)}
+                  >
+                    <img src={GrayHearth} alt="" />
+                  </button>
+                )}
               </li>
             ))}
           </ul>
 
           <button className="clear-history" onClick={clearHistory}>
             Limpar Histórico
+          </button>
+        </>
+      )}
+
+      {favorites.length > 0 && (
+        <>
+          <h2>Favoritos</h2>
+          <ul>
+            {favorites.map((item, index) => (
+              <li key={index}>
+                <span
+                  onClick={() => window.open(item.url, '_blank')}
+                  style={{
+                    cursor: 'pointer',
+                    color: '#007bff',
+                    textDecoration: 'underline',
+                  }}
+                >
+                  {item.query} - {item.platform}
+                </span>
+              </li>
+            ))}
+          </ul>
+          <button className="clear-favorites" onClick={clearFavorites}>
+            Limpar Favoritos
           </button>
         </>
       )}

@@ -82,6 +82,18 @@ button:disabled {
   cursor: not-allowed;
 }
 
+.btn-favorite {
+  background: transparent;
+}
+
+.btn-favorite img {
+  width: 1.5em;
+}
+
+.btn-favorite:hover {
+  background-color: transparent;
+}
+
 /* Estilo para o histórico de pesquisas */
 h2 {
   font-size: 20px;
