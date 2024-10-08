@@ -1,93 +1,129 @@
-/* Definindo estilo básico para o corpo */
+/* Estilo básico do corpo */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f0f2f5;
   margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 
-/* Container principal */
+/* Container principal da aplicação */
 .App {
   background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
   width: 100%;
   text-align: center;
 }
 
-/* Estilo do título principal */
+/* Título principal */
 h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
+  font-size: 28px;
+  margin-bottom: 25px;
   color: #333;
+  font-weight: 600;
 }
 
-/* Estilizando o input de busca */
+/* Campo de input para a busca */
 input[type='text'] {
-  padding: 10px;
+  padding: 12px 16px;
   width: 80%;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 8px;
   font-size: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   outline: none;
+  transition: border-color 0.3s;
 }
 
-/* Mudando a borda do input ao focar */
+/* Foco no input */
 input[type='text']:focus {
   border-color: #007bff;
 }
 
-/* Estilo do botão */
+/* Botão de busca */
 button {
   background-color: #007bff;
   color: white;
-  padding: 10px 20px;
+  padding: 10px 24px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s;
+  margin-left: 10px;
 }
 
-/* Alterando a cor do botão ao passar o mouse */
+/* Efeito hover no botão */
 button:hover {
   background-color: #0056b3;
 }
 
-/* Desativando o botão quando em estado de carregamento */
+/* Estilo desativado para o botão de carregamento */
 button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }
 
-/* Estilo dos artigos */
-div article {
-  background-color: #f9f9f9;
-  padding: 15px;
+/* Lista de artigos */
+.article-list {
+  margin-top: 20px;
+}
+
+/* Artigo - estilo de card */
+article {
+  background-color: #fff;
+  padding: 20px;
   margin: 20px 0;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
   text-align: left;
 }
 
-/* Estilo do título dos artigos */
-h3 {
-  color: #333;
+article:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Cabeçalho do artigo */
+.article-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 10px;
 }
 
-/* Estilo do resumo dos artigos */
+/* Título do artigo */
+h3 {
+  font-size: 20px;
+  color: #007bff;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Data do artigo */
+.article-date {
+  font-size: 14px;
+  color: #888;
+}
+
+/* Resumo do artigo */
 p {
   color: #555;
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.6;
+  margin: 15px 0;
+  max-height: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* Estilo do link */
@@ -95,10 +131,36 @@ a {
   color: #007bff;
   text-decoration: none;
   font-weight: bold;
+  align-self: flex-start;
+  transition: color 0.3s;
 }
 
-/* Alteração da cor do link ao passar o mouse */
+/* Hover no link */
 a:hover {
   color: #0056b3;
   text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .App {
+    padding: 20px;
+  }
+
+  input[type='text'] {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  button {
+    padding: 10px 20px;
+  }
+
+  article {
+    padding: 15px;
+  }
 }

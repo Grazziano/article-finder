@@ -2,30 +2,35 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
 
-interface IArticle {
-  title: string | null;
-  summary: string | null;
-  link: string | null;
+// Definição dos tipos de dados para os artigos
+interface Article {
+  title: string;
+  summary: string;
+  link: string;
+  published: string;
 }
 
 function App() {
   const [query, setQuery] = useState<string>(''); // Estado para armazenar a string de busca
-  const [articles, setArticles] = useState<IArticle[]>([]); // Estado para armazenar os artigos
+  const [articles, setArticles] = useState<Article[]>([]); // Estado para armazenar os artigos
   const [loading, setLoading] = useState<boolean>(false); // Estado de carregamento
 
   // Função para buscar artigos
   const buscarArtigos = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://export.arxiv.org/api/query', {
-        params: {
-          search_query: `all:${query}`,
-          start: 0,
-          max_results: 5,
-          sortBy: 'relevance',
-          sortOrder: 'descending',
-        },
-      });
+      const response = await axios.get<string>(
+        'http://export.arxiv.org/api/query',
+        {
+          params: {
+            search_query: `all:${query}`,
+            start: 0,
+            max_results: 5,
+            sortBy: 'relevance',
+            sortOrder: 'descending',
+          },
+        }
+      );
 
       const xmlData = response.data;
       const parser = new DOMParser();
@@ -33,14 +38,19 @@ function App() {
 
       // Extrair informações dos artigos
       const entries = xml.getElementsByTagName('entry');
-      const articlesList = [];
+      const articlesList: Article[] = [];
       for (let i = 0; i < entries.length; i++) {
-        const title = entries[i].getElementsByTagName('title')[0].textContent;
+        const title =
+          entries[i].getElementsByTagName('title')[0].textContent ||
+          'Sem título';
         const summary =
-          entries[i].getElementsByTagName('summary')[0].textContent;
-        const link = entries[i].getElementsByTagName('id')[0].textContent;
+          entries[i].getElementsByTagName('summary')[0].textContent ||
+          'Sem resumo';
+        const link = entries[i].getElementsByTagName('id')[0].textContent || '';
+        const published =
+          entries[i].getElementsByTagName('published')[0].textContent || '';
 
-        articlesList.push({ title, summary, link });
+        articlesList.push({ title, summary, link, published });
       }
 
       setArticles(articlesList);
@@ -65,16 +75,21 @@ function App() {
         {loading ? 'Buscando...' : 'Buscar'}
       </button>
 
-      <div>
+      <div className="article-list">
         {articles.length > 0 ? (
           articles.map((article, index) => (
-            <div key={index} style={{ margin: '20px 0' }}>
-              <h3>{article.title}</h3>
+            <article key={index}>
+              <div className="article-header">
+                <h3>{article.title}</h3>
+                <span className="article-date">
+                  {new Date(article.published).toLocaleDateString()}
+                </span>
+              </div>
               <p>{article.summary}</p>
               <a href={article.link} target="_blank" rel="noopener noreferrer">
                 Leia mais
               </a>
-            </div>
+            </article>
           ))
         ) : (
           <p>Nenhum artigo encontrado.</p>
