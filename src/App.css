@@ -82,6 +82,54 @@ button:disabled {
   cursor: not-allowed;
 }
 
+/* Estilo para o histórico de pesquisas */
+h2 {
+  font-size: 20px;
+  margin-top: 30px;
+  color: #333;
+  font-weight: 500;
+}
+
+/* Estilo da lista de histórico */
+ul {
+  list-style-type: none; /* Remove os marcadores padrão da lista */
+  padding: 0; /* Remove o preenchimento padrão */
+  margin: 0; /* Remove a margem padrão */
+}
+
+/* Estilo de cada item da lista */
+li {
+  background-color: #e7f1ff; /* Cor de fundo leve para os itens */
+  padding: 12px 16px; /* Preenchimento interno */
+  border-radius: 8px; /* Bordas arredondadas */
+  margin: 8px 0; /* Margem entre os itens */
+  transition: background-color 0.3s; /* Transição suave ao passar o mouse */
+  cursor: pointer; /* Muda o cursor para indicar que é interativo */
+}
+
+/* Efeito hover nos itens da lista */
+li:hover {
+  background-color: #d0e7ff; /* Cor de fundo mais escura ao passar o mouse */
+}
+
+/* Estilo para o botão de limpar histórico */
+.clear-history {
+  background-color: #ff4d4d; /* Cor de fundo do botão de limpar */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background-color 0.3s;
+}
+
+/* Efeito hover no botão de limpar histórico */
+.clear-history:hover {
+  background-color: #e60000; /* Cor de fundo mais escura ao passar o mouse */
+}
+
 /* Responsividade para dispositivos móveis */
 @media (max-width: 768px) {
   .App {

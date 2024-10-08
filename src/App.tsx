@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 
 type SearchPlatform =
@@ -8,10 +8,16 @@ type SearchPlatform =
   | 'ACM Digital Library'
   | 'PubMed';
 
+interface SearchHistory {
+  query: string;
+  platform: SearchPlatform;
+}
+
 function App() {
   const [query, setQuery] = useState<string>(''); // String de busca
   const [platform, setPlatform] = useState<SearchPlatform>('arXiv'); // Plataforma selecionada
   const [loading, setLoading] = useState<boolean>(false); // Estado de carregamento
+  const [history, setHistory] = useState<SearchHistory[]>([]); // Histórico de buscas
 
   // URLs de busca para cada plataforma
   const platformUrls = {
@@ -33,6 +39,14 @@ function App() {
       `https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(query)}`,
   };
 
+  // Carrega o histórico do localStorage ao montar o componente
+  useEffect(() => {
+    const savedHistory = localStorage.getItem('searchHistory');
+    if (savedHistory) {
+      setHistory(JSON.parse(savedHistory));
+    }
+  }, []);
+
   // Função para redirecionar para a plataforma selecionada
   const searchArticles = () => {
     if (!query) {
@@ -44,6 +58,31 @@ function App() {
     const searchUrl = platformUrls[platform](query);
     window.open(searchUrl, '_blank'); // Abre os resultados de busca em uma nova aba
     setLoading(false);
+
+    // Atualiza o histórico de buscas
+    setHistory((prevHistory) => {
+      const updatedHistory = [
+        { query, platform }, // Adiciona a nova pesquisa com plataforma
+        ...prevHistory,
+      ];
+      localStorage.setItem('searchHistory', JSON.stringify(updatedHistory)); // Salva no localStorage
+      return updatedHistory;
+    });
+
+    // Limpa a caixa de entrada
+    setQuery('');
+  };
+
+  // Função para limpar o histórico
+  const clearHistory = () => {
+    setHistory([]);
+    localStorage.removeItem('searchHistory'); // Remove o histórico do localStorage
+  };
+
+  // Função para redirecionar para a pesquisa do histórico
+  const redirectFromHistory = (item: SearchHistory) => {
+    const searchUrl = platformUrls[item.platform](item.query);
+    window.open(searchUrl, '_blank');
   };
 
   return (
@@ -66,12 +105,37 @@ function App() {
         <option value="Google Scholar">Google Scholar</option>
         <option value="IEEE">IEEE Xplore</option>
         <option value="ACM Digital Library">ACM Digital Library</option>
-        <option value="PubMed">PubMed</option>{' '}
+        <option value="PubMed">PubMed</option>
       </select>
 
       <button onClick={searchArticles} disabled={loading}>
         {loading ? 'Buscando...' : 'Buscar'}
       </button>
+
+      {history.length > 0 && (
+        <>
+          <h2>Histórico de Pesquisas</h2>
+          <ul>
+            {history.map((item, index) => (
+              <li
+                key={index}
+                onClick={() => redirectFromHistory(item)}
+                style={{
+                  cursor: 'pointer',
+                  color: '#007bff',
+                  textDecoration: 'underline',
+                }}
+              >
+                {item.query} - {item.platform}
+              </li>
+            ))}
+          </ul>
+
+          <button className="clear-history" onClick={clearHistory}>
+            Limpar Histórico
+          </button>
+        </>
+      )}
     </div>
   );
 }
