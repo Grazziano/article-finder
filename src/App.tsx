@@ -5,7 +5,9 @@ import { SearchHistory } from './interfaces/SearchHistory';
 import SearchPage from './pages/SearchPage';
 import HistoryPage from './pages/HistoryPage';
 import FavoritesPage from './pages/FavoritesPage';
-import './App.css';
+import Navbar from './components/NavBar';
+import { Box, Container, Spinner } from '@chakra-ui/react';
+// import './App.css';
 
 function App() {
   const [query, setQuery] = useState<string>('');
@@ -72,10 +74,10 @@ function App() {
   };
 
   // Função para limpar o histórico
-  // const clearHistory = () => {
-  //   setHistory([]);
-  //   localStorage.removeItem('searchHistory'); // Remove o histórico do localStorage
-  // };
+  const clearHistory = () => {
+    setHistory([]);
+    localStorage.removeItem('searchHistory'); // Remove o histórico do localStorage
+  };
 
   // Função para redirecionar para a pesquisa do histórico
   // const redirectFromHistory = (item: SearchHistory) => {
@@ -104,50 +106,76 @@ function App() {
   };
 
   // Função para limpar os favoritos
-  // const clearFavorites = () => {
-  //   setFavorites([]);
-  //   localStorage.removeItem('favorites'); // Remove os favoritos do localStorage
-  // };
+  const clearFavorites = () => {
+    setFavorites([]);
+    localStorage.removeItem('favorites'); // Remove os favoritos do localStorage
+  };
+
+  // Função para remover um item do histórico
+  const removeHistoryItem = (itemToRemove: SearchHistory) => {
+    setHistory((prevHistory) => {
+      const updatedHistory = prevHistory.filter(
+        (item) => item.query !== itemToRemove.query
+      );
+      localStorage.setItem('searchHistory', JSON.stringify(updatedHistory)); // Atualiza o localStorage
+      return updatedHistory;
+    });
+  };
 
   return (
     <Router>
-      <div className="App">
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/history">Histórico</Link>
-          <Link to="/favorites">Favoritos</Link>
-        </nav>
-
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <SearchPage
-                query={query}
-                setQuery={setQuery}
-                platform={platform}
-                setPlatform={setPlatform}
-                searchArticles={searchArticles}
-                loading={loading}
-              />
-            }
-          />
-          <Route
-            path="/history"
-            element={
-              <HistoryPage
-                history={history}
-                toggleFavorite={toggleFavorite}
-                favorites={favorites}
-              />
-            }
-          />
-          <Route
-            path="/favorites"
-            element={<FavoritesPage favorites={favorites} />}
-          />
-        </Routes>
-      </div>
+      <Navbar />
+      <Container maxW="5xl" mt={5}>
+        {loading ? (
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            height="100vh"
+          >
+            <Spinner size="xl" />
+          </Box>
+        ) : (
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <SearchPage
+                  query={query}
+                  setQuery={setQuery}
+                  platform={platform}
+                  setPlatform={setPlatform}
+                  searchArticles={searchArticles}
+                  loading={loading}
+                />
+              }
+            />
+            <Route
+              path="/history"
+              element={
+                <HistoryPage
+                  history={history}
+                  toggleFavorite={toggleFavorite}
+                  favorites={favorites}
+                  clearHistory={clearHistory}
+                  removeHistoryItem={removeHistoryItem}
+                  isFullWidth={false}
+                />
+              }
+            />
+            <Route
+              path="/favorites"
+              element={
+                <FavoritesPage
+                  favorites={favorites}
+                  clearFavorites={clearFavorites}
+                  isFullWidth={false}
+                />
+              }
+            />
+          </Routes>
+        )}
+      </Container>
     </Router>
   );
 }
