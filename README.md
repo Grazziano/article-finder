@@ -44,11 +44,9 @@
 .
 ├── src
 │   ├── components   # Componentes reutilizáveis
+│   ├── contexts     # Estados globais da aplicação
 │   ├── interfaces   # Interfaces e tipagem
 │   ├── pages        # Páginas da aplicação (Busca, Histórico, Favoritos)
-│   ├── services     # Serviços para integração com APIs
-│   ├── hooks        # Hooks customizados
-│   ├── utils        # Utilitários e funções auxiliares
 │   ├── App.tsx      # Componente principal da aplicação
 │   ├── main.tsx    # Ponto de entrada da aplicação
 └── ...
