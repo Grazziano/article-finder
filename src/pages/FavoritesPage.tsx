@@ -1,5 +1,5 @@
-import React from 'react';
-import { SearchHistory } from '../interfaces/SearchHistory';
+import React, { useContext } from "react";
+import { SearchContext } from "../contexts/SearchContext";
 import {
   Box,
   Heading,
@@ -8,20 +8,11 @@ import {
   Text,
   Button,
   Flex,
-} from '@chakra-ui/react';
-import { ExternalLinkIcon } from '@chakra-ui/icons';
+} from "@chakra-ui/react";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
 
-interface FavoritesPageProps {
-  favorites: SearchHistory[];
-  clearFavorites: () => void; // Nova função para limpar favoritos
-  isFullWidth: boolean;
-}
-
-const FavoritesPage: React.FC<FavoritesPageProps> = ({
-  favorites,
-  clearFavorites,
-  isFullWidth,
-}) => {
+const FavoritesPage: React.FC = () => {
+  const { favorites, clearFavorites } = useContext(SearchContext)!;
   return (
     <Box p={8} bg="gray.50" rounded="md" shadow="md" maxW="xl" mx="auto">
       <Heading as="h2" size="lg" mb={6} textAlign="center" color="teal.600">
@@ -39,7 +30,7 @@ const FavoritesPage: React.FC<FavoritesPageProps> = ({
             variant="outline"
             onClick={clearFavorites}
             mb={4}
-            width={isFullWidth ? '100%' : 'auto'}
+            width="auto"
           >
             Limpar Favoritos
           </Button>
@@ -55,12 +46,12 @@ const FavoritesPage: React.FC<FavoritesPageProps> = ({
                 p={4}
                 rounded="md"
                 shadow="sm"
-                _hover={{ shadow: 'md', bg: 'gray.100' }}
+                _hover={{ shadow: "md", bg: "gray.100" }}
               >
                 <Flex>
                   <Text
                     as="span"
-                    onClick={() => window.open(item.url, '_blank')}
+                    onClick={() => window.open(item.url, "_blank")}
                     cursor="pointer"
                     textDecoration="underline"
                     color="teal.500"

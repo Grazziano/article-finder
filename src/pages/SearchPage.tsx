@@ -1,4 +1,5 @@
-import { Dispatch, SetStateAction } from 'react';
+import { useContext } from "react";
+import { SearchContext } from "../contexts/SearchContext";
 import {
   Button,
   Input,
@@ -9,31 +10,18 @@ import {
   Box,
   FormControl,
   FormLabel,
-} from '@chakra-ui/react';
-import { SearchPlatform } from '../interfaces/SearchPlatform';
+} from "@chakra-ui/react";
+import { SearchPlatform } from "../interfaces/SearchPlatform";
 
-interface SearchPageProps {
-  query: string;
-  setQuery: Dispatch<SetStateAction<string>>;
-  platform: SearchPlatform; // Certifique-se de que o tipo esteja correto
-  setPlatform: Dispatch<SetStateAction<SearchPlatform>>; // Mude aqui
-  searchArticles: () => void;
-  loading: boolean;
-}
-
-const SearchPage: React.FC<SearchPageProps> = ({
-  query,
-  setQuery,
-  platform,
-  setPlatform,
-  searchArticles,
-  loading,
-}) => {
+const SearchPage: React.FC = () => {
   const handlePlatformChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     setPlatform(event.target.value as SearchPlatform); // Aqui você garante que o valor é do tipo correto
   };
+
+  const { query, setQuery, platform, setPlatform, searchArticles, loading } =
+    useContext(SearchContext)!;
 
   return (
     <Box bg="gray.50" p={8} rounded="md" shadow="md" maxW="xl" mx="auto">
