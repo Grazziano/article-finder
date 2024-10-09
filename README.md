@@ -1,50 +1,69 @@
-# React + TypeScript + Vite
+# Buscar Artigos
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Buscar Artigos** é uma aplicação que permite realizar buscas de artigos acadêmicos em diversas plataformas, como arXiv, Google Scholar, IEEE, ACM Digital Library e PubMed. A aplicação também permite gerenciar o histórico de pesquisas e artigos favoritos.
 
-Currently, two official plugins are available:
+## Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Pesquisa de artigos**: Realize buscas de artigos em várias plataformas acadêmicas.
+- **Histórico de buscas**: Consulte o histórico de pesquisas realizadas.
+- **Gerenciamento de favoritos**: Salve artigos para consulta futura.
+- **Interface moderna**: Construída com **ReactJS** e **Chakra UI** para uma experiência visual agradável e responsiva.
+- **Persistência local**: Utiliza o **localStorage** para armazenar histórico e favoritos.
 
-## Expanding the ESLint configuration
+## Tecnologias Utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **ReactJS**: Biblioteca para construção da interface do usuário.
+- **TypeScript**: Tipagem estática para maior segurança e eficiência.
+- **Chakra UI**: Biblioteca de componentes para estilização responsiva e acessível.
+- **arXiv API**: Para realizar as buscas de artigos.
+- **localStorage**: Para persistência de dados de histórico e favoritos.
 
-- Configure the top-level `parserOptions` property like this:
+## Como Usar
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/Grazziano/buscar-artigos.git
+   ```
+
+2. Instale as dependências:
+   ```bash
+   cd buscar-artigos
+   npm install
+   ```
+
+3. Inicie a aplicação:
+   ```bash
+   npm start
+   ```
+
+4. Acesse a aplicação em `http://localhost:3000`.
+
+## Estrutura do Projeto
+
+```bash
+.
+├── src
+│   ├── components   # Componentes reutilizáveis
+│   ├── interfaces   # Interfaces e tipagem
+│   ├── pages        # Páginas da aplicação (Busca, Histórico, Favoritos)
+│   ├── services     # Serviços para integração com APIs
+│   ├── hooks        # Hooks customizados
+│   ├── utils        # Utilitários e funções auxiliares
+│   ├── App.tsx      # Componente principal da aplicação
+│   ├── main.tsx    # Ponto de entrada da aplicação
+└── ...
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Melhorias Futuras
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- Integração com mais plataformas acadêmicas (Ex: Scopus).
+- Filtros avançados de busca (por data, autores, etc.).
+- Exportação de artigos salvos para formatos como CSV ou PDF.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Contribuindo
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir **issues** ou enviar **pull requests**.
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
