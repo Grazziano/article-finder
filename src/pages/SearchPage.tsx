@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { SearchContext } from "../contexts/SearchContext";
+import { useContext } from 'react';
+import { SearchContext } from '../contexts/SearchContext';
 import {
   Button,
   Input,
@@ -10,27 +10,31 @@ import {
   Box,
   FormControl,
   FormLabel,
-} from "@chakra-ui/react";
-import { SearchPlatform } from "../interfaces/SearchPlatform";
+  useColorModeValue,
+} from '@chakra-ui/react';
+import { SearchPlatform } from '../interfaces/SearchPlatform';
 
 const SearchPage: React.FC = () => {
   const handlePlatformChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    setPlatform(event.target.value as SearchPlatform); // Aqui você garante que o valor é do tipo correto
+    setPlatform(event.target.value as SearchPlatform);
   };
 
   const { query, setQuery, platform, setPlatform, searchArticles, loading } =
     useContext(SearchContext)!;
 
+  const bg = useColorModeValue('gray.50', 'gray.700');
+  const textColor = useColorModeValue('teal.600', 'teal.300');
+
   return (
-    <Box bg="gray.50" p={8} rounded="md" shadow="md" maxW="xl" mx="auto">
-      <Heading as="h1" size="xl" mb={6} textAlign="center" color="teal.600">
+    <Box bg={bg} p={8} rounded="md" shadow="md" maxW="xl" mx="auto">
+      <Heading as="h1" size="xl" mb={6} textAlign="center" color={textColor}>
         Busca de Artigos Acadêmicos
       </Heading>
 
       <FormControl mb={4}>
-        <FormLabel fontSize="lg" color="teal.500">
+        <FormLabel fontSize="lg" color={textColor}>
           Termo de Busca
         </FormLabel>
         <Input
@@ -40,13 +44,13 @@ const SearchPage: React.FC = () => {
           placeholder="Digite o termo de busca..."
           size="lg"
           focusBorderColor="teal.400"
-          bg="white"
+          bg={bg}
           shadow="sm"
         />
       </FormControl>
 
       <FormControl mb={6}>
-        <FormLabel fontSize="lg" color="teal.500">
+        <FormLabel fontSize="lg" color={textColor}>
           Plataforma de Pesquisa
         </FormLabel>
         <Select
@@ -55,7 +59,7 @@ const SearchPage: React.FC = () => {
           onChange={handlePlatformChange}
           size="lg"
           focusBorderColor="teal.400"
-          bg="white"
+          bg={bg}
           shadow="sm"
         >
           <option value="arXiv">arXiv</option>

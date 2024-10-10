@@ -1,9 +1,20 @@
-import { Box, Text, Link, Stack, IconButton } from '@chakra-ui/react';
+import {
+  Box,
+  Text,
+  Link,
+  Stack,
+  IconButton,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 const Footer = () => {
+  const bg = useColorModeValue('teal.600', 'teal.700');
+  const textColor = useColorModeValue('white', 'white');
+  const hoverBg = useColorModeValue('teal.400', 'teal.400');
+
   return (
-    <Box as="footer" bg="teal.600" color="white" py={4} mt={10} bottom={0}>
+    <Box as="footer" bg={bg} color={textColor} py={4} mt={10} bottom={0}>
       <Stack
         direction={{ base: 'column', md: 'row' }}
         justify="space-between"
@@ -31,7 +42,7 @@ const Footer = () => {
               icon={<FaLinkedin />}
               variant="ghost"
               colorScheme="whiteAlpha"
-              _hover={{ bg: 'teal.400' }}
+              _hover={{ bg: hoverBg }}
             />
           </Link>
         </Stack>

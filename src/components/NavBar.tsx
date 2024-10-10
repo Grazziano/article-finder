@@ -8,10 +8,12 @@ import {
   Image,
   Text,
   Link as ChakraLink,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { Link, useLocation } from 'react-router-dom';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import PaperImg from '../assets/images/paper.png';
+import ToggleThemeButton from './ToggleThemeButton';
 
 const Links = ['Busca', 'Histórico', 'Favoritos'];
 
@@ -37,7 +39,7 @@ const NavLink = ({ children }: { children: React.ReactNode }) => {
       py={1}
       rounded={'md'}
       bg={isActive ? 'teal.500' : 'transparent'}
-      color={isActive ? 'white' : 'black'}
+      color={isActive ? 'white' : 'teal.500'}
       _hover={{
         textDecoration: 'none',
         bg: isActive ? 'teal.600' : 'gray.200',
@@ -51,9 +53,17 @@ const NavLink = ({ children }: { children: React.ReactNode }) => {
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const bg = useColorModeValue('gray.100', 'gray.700');
+  const textColor = useColorModeValue('teal.600', 'teal.300');
+
   return (
-    <Box bg={'gray.100'} px={4}>
-      <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+    <Box bg={bg} px={4}>
+      <Flex
+        h={16}
+        alignItems={'center'}
+        justifyContent={'space-between'}
+        color={textColor}
+      >
         <IconButton
           size={'md'}
           icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
@@ -78,8 +88,9 @@ export default function Navbar() {
             ))}
           </HStack>
         </HStack>
-        <Flex alignItems={'center'}>
+        <Flex alignItems={'center'} gap={2}>
           <Text>Busca de Artigos Acadêmicos</Text>
+          <ToggleThemeButton />
         </Flex>
       </Flex>
 

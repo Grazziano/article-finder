@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { SearchContext } from "../contexts/SearchContext";
+import React, { useContext } from 'react';
+import { SearchContext } from '../contexts/SearchContext';
 import {
   Box,
   Heading,
@@ -8,14 +8,19 @@ import {
   Text,
   Button,
   Flex,
-} from "@chakra-ui/react";
-import { ExternalLinkIcon } from "@chakra-ui/icons";
+  useColorModeValue,
+} from '@chakra-ui/react';
+import { ExternalLinkIcon } from '@chakra-ui/icons';
 
 const FavoritesPage: React.FC = () => {
   const { favorites, clearFavorites } = useContext(SearchContext)!;
+
+  const bg = useColorModeValue('gray.50', 'gray.700');
+  const textColor = useColorModeValue('teal.600', 'teal.300');
+
   return (
-    <Box p={8} bg="gray.50" rounded="md" shadow="md" maxW="xl" mx="auto">
-      <Heading as="h2" size="lg" mb={6} textAlign="center" color="teal.600">
+    <Box p={8} bg={bg} rounded="md" shadow="md" maxW="xl" mx="auto">
+      <Heading as="h2" size="lg" mb={6} textAlign="center" color={textColor}>
         Favoritos
       </Heading>
 
@@ -42,19 +47,19 @@ const FavoritesPage: React.FC = () => {
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
-                bg="white"
+                bg={bg}
                 p={4}
                 rounded="md"
                 shadow="sm"
-                _hover={{ shadow: "md", bg: "gray.100" }}
+                _hover={{ shadow: 'md', bg: 'gray.100' }}
               >
                 <Flex>
                   <Text
                     as="span"
-                    onClick={() => window.open(item.url, "_blank")}
+                    onClick={() => window.open(item.url, '_blank')}
                     cursor="pointer"
                     textDecoration="underline"
-                    color="teal.500"
+                    color={textColor}
                     fontWeight="medium"
                   >
                     {item.query} - {item.platform}

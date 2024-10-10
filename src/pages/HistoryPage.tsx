@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
-import { SearchContext } from "../contexts/SearchContext";
-import GrayHearth from "../assets/images/icons/gray_hearth.svg";
-import RedHearth from "../assets/images/icons/red_hearth.svg";
+import React, { useContext } from 'react';
+import { SearchContext } from '../contexts/SearchContext';
+import GrayHearth from '../assets/images/icons/gray_hearth.svg';
+import RedHearth from '../assets/images/icons/red_hearth.svg';
 import {
   Box,
   Heading,
@@ -12,8 +12,9 @@ import {
   Image,
   Button,
   Flex,
-} from "@chakra-ui/react";
-import { ExternalLinkIcon, DeleteIcon } from "@chakra-ui/icons";
+  useColorModeValue,
+} from '@chakra-ui/react';
+import { ExternalLinkIcon, DeleteIcon } from '@chakra-ui/icons';
 
 const HistoryPage: React.FC = () => {
   const {
@@ -24,9 +25,13 @@ const HistoryPage: React.FC = () => {
     removeHistoryItem,
   } = useContext(SearchContext)!;
 
+  const bg = useColorModeValue('gray.50', 'gray.700');
+  const textColor = useColorModeValue('teal.600', 'teal.300');
+  const hoverBg = useColorModeValue('gray.100', 'gray.600');
+
   return (
-    <Box p={8} bg="gray.50" rounded="md" shadow="md" maxW="xl" mx="auto">
-      <Heading as="h2" size="lg" mb={6} textAlign="center" color="teal.600">
+    <Box p={8} bg={bg} rounded="md" shadow="md" maxW="xl" mx="auto">
+      <Heading as="h2" size="lg" mb={6} textAlign="center" color={textColor}>
         Histórico de Pesquisas
       </Heading>
 
@@ -61,15 +66,15 @@ const HistoryPage: React.FC = () => {
                   p={4}
                   rounded="md"
                   shadow="sm"
-                  _hover={{ shadow: "md", bg: "gray.100" }}
+                  _hover={{ shadow: 'md', bg: hoverBg }}
                 >
                   <Flex alignItems="center">
                     <Text
                       as="span"
-                      onClick={() => window.open(item.url, "_blank")}
+                      onClick={() => window.open(item.url, '_blank')}
                       cursor="pointer"
                       textDecoration="underline"
-                      color="teal.500"
+                      color={textColor}
                       fontWeight="medium"
                     >
                       {item.query} - {item.platform}
@@ -78,7 +83,6 @@ const HistoryPage: React.FC = () => {
                   </Flex>
 
                   <Flex>
-                    {/* Botão de favoritar/desfavoritar */}
                     <IconButton
                       aria-label="Favoritar"
                       icon={
@@ -86,19 +90,18 @@ const HistoryPage: React.FC = () => {
                           src={isFavorite ? RedHearth : GrayHearth}
                           alt={
                             isFavorite
-                              ? "Remover dos favoritos"
-                              : "Adicionar aos favoritos"
+                              ? 'Remover dos favoritos'
+                              : 'Adicionar aos favoritos'
                           }
                           boxSize="20px"
                         />
                       }
                       onClick={() => toggleFavorite(item)}
                       variant="ghost"
-                      _hover={{ bg: "transparent" }}
+                      _hover={{ bg: 'transparent' }}
                       mr={2}
                     />
 
-                    {/* Botão de remover individualmente */}
                     <IconButton
                       aria-label="Remover"
                       icon={<DeleteIcon />}
