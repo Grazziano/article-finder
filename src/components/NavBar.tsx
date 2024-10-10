@@ -2,21 +2,21 @@ import {
   Box,
   Flex,
   HStack,
-  // Link,
   IconButton,
-  // Button,
   useDisclosure,
   Stack,
   Image,
   Text,
+  Link as ChakraLink,
 } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import PaperImg from '../assets/images/paper.png';
 
 const Links = ['Busca', 'Histórico', 'Favoritos'];
 
 const NavLink = ({ children }: { children: React.ReactNode }) => {
+  const location = useLocation();
   let link = '/';
 
   if (children === 'Histórico') {
@@ -27,19 +27,24 @@ const NavLink = ({ children }: { children: React.ReactNode }) => {
     link = '/';
   }
 
+  const isActive = location.pathname === link;
+
   return (
-    <Link
-      // px={2}
-      // py={1}
-      // rounded={'md'}
-      // _hover={{
-      //   textDecoration: 'none',
-      //   bg: 'gray.200',
-      // }}
+    <ChakraLink
+      as={Link}
       to={link}
+      px={2}
+      py={1}
+      rounded={'md'}
+      bg={isActive ? 'teal.500' : 'transparent'}
+      color={isActive ? 'white' : 'black'}
+      _hover={{
+        textDecoration: 'none',
+        bg: isActive ? 'teal.600' : 'gray.200',
+      }}
     >
       {children}
-    </Link>
+    </ChakraLink>
   );
 };
 
@@ -74,9 +79,6 @@ export default function Navbar() {
           </HStack>
         </HStack>
         <Flex alignItems={'center'}>
-          {/* <Button variant={'solid'} colorScheme={'teal'} size={'sm'} mr={4}>
-            Ação
-          </Button> */}
           <Text>Busca de Artigos Acadêmicos</Text>
         </Flex>
       </Flex>
