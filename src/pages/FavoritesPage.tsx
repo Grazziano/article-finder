@@ -17,6 +17,8 @@ const FavoritesPage: React.FC = () => {
 
   const bg = useColorModeValue('gray.50', 'gray.700');
   const textColor = useColorModeValue('teal.600', 'teal.300');
+  const boxColor = useColorModeValue('white', 'gray.600');
+  const hoverBg = useColorModeValue('gray.100', 'gray.800');
 
   return (
     <Box p={8} bg={bg} rounded="md" shadow="md" maxW="xl" mx="auto">
@@ -47,11 +49,11 @@ const FavoritesPage: React.FC = () => {
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
-                bg={bg}
+                bg={boxColor}
                 p={4}
                 rounded="md"
                 shadow="sm"
-                _hover={{ shadow: 'md', bg: 'gray.100' }}
+                _hover={{ shadow: 'md', bg: hoverBg }}
               >
                 <Flex>
                   <Text

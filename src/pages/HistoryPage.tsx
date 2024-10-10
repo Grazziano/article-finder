@@ -27,7 +27,8 @@ const HistoryPage: React.FC = () => {
 
   const bg = useColorModeValue('gray.50', 'gray.700');
   const textColor = useColorModeValue('teal.600', 'teal.300');
-  const hoverBg = useColorModeValue('gray.100', 'gray.600');
+  const boxColor = useColorModeValue('white', 'gray.600');
+  const hoverBg = useColorModeValue('gray.100', 'gray.800');
 
   return (
     <Box p={8} bg={bg} rounded="md" shadow="md" maxW="xl" mx="auto">
@@ -62,7 +63,7 @@ const HistoryPage: React.FC = () => {
                   display="flex"
                   justifyContent="space-between"
                   alignItems="center"
-                  bg="white"
+                  bg={boxColor}
                   p={4}
                   rounded="md"
                   shadow="sm"
