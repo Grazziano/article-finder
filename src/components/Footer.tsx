@@ -11,7 +11,6 @@ import { FaGithub, FaLinkedin } from 'react-icons/fa';
 const Footer = () => {
   const bg = useColorModeValue('teal.600', 'teal.700');
   const textColor = useColorModeValue('white', 'white');
-  const hoverBg = useColorModeValue('teal.400', 'teal.400');
 
   return (
     <Box as="footer" bg={bg} color={textColor} py={4} mt={10} bottom={0}>
@@ -42,7 +41,7 @@ const Footer = () => {
               icon={<FaLinkedin />}
               variant="ghost"
               colorScheme="whiteAlpha"
-              _hover={{ bg: hoverBg }}
+              _hover={{ bg: 'teal.400' }}
             />
           </Link>
         </Stack>
