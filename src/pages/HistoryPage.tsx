@@ -3,6 +3,7 @@ import { SearchContext } from '../contexts/SearchContext';
 import GrayHearth from '../assets/images/icons/gray_hearth.svg';
 import RedHearth from '../assets/images/icons/red_hearth.svg';
 import {
+  Badge,
   Box,
   Heading,
   List,
@@ -13,8 +14,9 @@ import {
   Button,
   Flex,
   useColorModeValue,
+  useToast,
 } from '@chakra-ui/react';
-import { ExternalLinkIcon, DeleteIcon } from '@chakra-ui/icons';
+import { ExternalLinkIcon, DeleteIcon, CopyIcon } from '@chakra-ui/icons';
 
 const HistoryPage: React.FC = () => {
   const {
@@ -29,6 +31,18 @@ const HistoryPage: React.FC = () => {
   const textColor = useColorModeValue('teal.600', 'teal.300');
   const boxColor = useColorModeValue('white', 'gray.600');
   const hoverBg = useColorModeValue('gray.100', 'gray.800');
+  const toast = useToast();
+
+  const handleCopy = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast({
+      title: 'Copiado!',
+      description: 'Texto copiado para a área de transferência.',
+      status: 'success',
+      duration: 2000,
+      isClosable: true,
+    });
+  };
 
   return (
     <Box p={8} bg={bg} rounded="md" shadow="md" maxW="xl" mx="auto">
@@ -68,6 +82,7 @@ const HistoryPage: React.FC = () => {
                   rounded="md"
                   shadow="sm"
                   _hover={{ shadow: 'md', bg: hoverBg }}
+                  flexDirection="column"
                 >
                   <Flex alignItems="center">
                     <Text
@@ -78,12 +93,28 @@ const HistoryPage: React.FC = () => {
                       color={textColor}
                       fontWeight="medium"
                     >
-                      {item.query} - {item.platform}
+                      {item.query}
                     </Text>
                     <ExternalLinkIcon mx="2px" />
                   </Flex>
 
-                  <Flex>
+                  <Flex alignItems="center" gap="2">
+                    <Badge
+                      variant="outline"
+                      colorScheme="green"
+                      fontSize="0.8em"
+                    >
+                      {item.platform}
+                    </Badge>
+
+                    <IconButton
+                      aria-label="Copiar texto"
+                      icon={<CopyIcon />}
+                      onClick={() => handleCopy(`${item.query}`)}
+                      variant="ghost"
+                      mr={2}
+                    />
+
                     <IconButton
                       aria-label="Favoritar"
                       icon={

@@ -9,8 +9,11 @@ import {
   Button,
   Flex,
   useColorModeValue,
+  useToast,
+  IconButton,
+  Badge,
 } from '@chakra-ui/react';
-import { ExternalLinkIcon } from '@chakra-ui/icons';
+import { ExternalLinkIcon, CopyIcon } from '@chakra-ui/icons';
 
 const FavoritesPage: React.FC = () => {
   const { favorites, clearFavorites } = useContext(SearchContext)!;
@@ -19,6 +22,18 @@ const FavoritesPage: React.FC = () => {
   const textColor = useColorModeValue('teal.600', 'teal.300');
   const boxColor = useColorModeValue('white', 'gray.600');
   const hoverBg = useColorModeValue('gray.100', 'gray.800');
+  const toast = useToast();
+
+  const handleCopy = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast({
+      title: 'Copiado!',
+      description: 'Texto copiado para a área de transferência.',
+      status: 'success',
+      duration: 2000,
+      isClosable: true,
+    });
+  };
 
   return (
     <Box p={8} bg={bg} rounded="md" shadow="md" maxW="xl" mx="auto">
@@ -54,6 +69,7 @@ const FavoritesPage: React.FC = () => {
                 rounded="md"
                 shadow="sm"
                 _hover={{ shadow: 'md', bg: hoverBg }}
+                flexDirection="column"
               >
                 <Flex>
                   <Text
@@ -64,9 +80,23 @@ const FavoritesPage: React.FC = () => {
                     color={textColor}
                     fontWeight="medium"
                   >
-                    {item.query} - {item.platform}
+                    {item.query}
                   </Text>
                   <ExternalLinkIcon mx="2px" />
+                </Flex>
+
+                <Flex alignItems="center" gap="2">
+                  <Badge variant="outline" colorScheme="green" fontSize="0.8em">
+                    {item.platform}
+                  </Badge>
+
+                  <IconButton
+                    aria-label="Copiar texto"
+                    icon={<CopyIcon />}
+                    onClick={() => handleCopy(`${item.query}`)}
+                    variant="ghost"
+                    mr={2}
+                  />
                 </Flex>
               </ListItem>
             ))}
