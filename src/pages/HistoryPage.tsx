@@ -68,9 +68,7 @@ const HistoryPage: React.FC = () => {
 
           <List spacing={4}>
             {history.map((item, index) => {
-              const isFavorite = favorites.find(
-                (fav) => fav.query === item.query
-              );
+              const isFavorite = favorites.find((fav) => fav.id === item.id);
               return (
                 <ListItem
                   key={index}

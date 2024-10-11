@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 import { SearchContext } from '../contexts/SearchContext';
+import GrayHearth from '../assets/images/icons/gray_hearth.svg';
+import RedHearth from '../assets/images/icons/red_hearth.svg';
 import {
   Box,
   Heading,
@@ -12,11 +14,13 @@ import {
   useToast,
   IconButton,
   Badge,
+  Image,
 } from '@chakra-ui/react';
 import { ExternalLinkIcon, CopyIcon } from '@chakra-ui/icons';
 
 const FavoritesPage: React.FC = () => {
-  const { favorites, clearFavorites } = useContext(SearchContext)!;
+  const { favorites, clearFavorites, toggleFavorite } =
+    useContext(SearchContext)!;
 
   const bg = useColorModeValue('gray.50', 'gray.700');
   const textColor = useColorModeValue('teal.600', 'teal.300');
@@ -58,48 +62,74 @@ const FavoritesPage: React.FC = () => {
           </Button>
 
           <List spacing={4}>
-            {favorites.map((item, index) => (
-              <ListItem
-                key={index}
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-                bg={boxColor}
-                p={4}
-                rounded="md"
-                shadow="sm"
-                _hover={{ shadow: 'md', bg: hoverBg }}
-                flexDirection="column"
-              >
-                <Flex>
-                  <Text
-                    as="span"
-                    onClick={() => window.open(item.url, '_blank')}
-                    cursor="pointer"
-                    textDecoration="underline"
-                    color={textColor}
-                    fontWeight="medium"
-                  >
-                    {item.query}
-                  </Text>
-                  <ExternalLinkIcon mx="2px" />
-                </Flex>
+            {favorites.map((item, index) => {
+              const isFavorite = favorites.find((fav) => fav.id === item.id);
+              return (
+                <ListItem
+                  key={index}
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  bg={boxColor}
+                  p={4}
+                  rounded="md"
+                  shadow="sm"
+                  _hover={{ shadow: 'md', bg: hoverBg }}
+                  flexDirection="column"
+                >
+                  <Flex>
+                    <Text
+                      as="span"
+                      onClick={() => window.open(item.url, '_blank')}
+                      cursor="pointer"
+                      textDecoration="underline"
+                      color={textColor}
+                      fontWeight="medium"
+                    >
+                      {item.query}
+                    </Text>
+                    <ExternalLinkIcon mx="2px" />
+                  </Flex>
 
-                <Flex alignItems="center" gap="2">
-                  <Badge variant="outline" colorScheme="green" fontSize="0.8em">
-                    {item.platform}
-                  </Badge>
+                  <Flex alignItems="center" gap="2">
+                    <Badge
+                      variant="outline"
+                      colorScheme="green"
+                      fontSize="0.8em"
+                    >
+                      {item.platform}
+                    </Badge>
 
-                  <IconButton
-                    aria-label="Copiar texto"
-                    icon={<CopyIcon />}
-                    onClick={() => handleCopy(`${item.query}`)}
-                    variant="ghost"
-                    mr={2}
-                  />
-                </Flex>
-              </ListItem>
-            ))}
+                    <IconButton
+                      aria-label="Copiar texto"
+                      icon={<CopyIcon />}
+                      onClick={() => handleCopy(`${item.query}`)}
+                      variant="ghost"
+                      mr={2}
+                    />
+
+                    <IconButton
+                      aria-label="Favoritar"
+                      icon={
+                        <Image
+                          src={isFavorite ? RedHearth : GrayHearth}
+                          alt={
+                            isFavorite
+                              ? 'Remover dos favoritos'
+                              : 'Adicionar aos favoritos'
+                          }
+                          boxSize="20px"
+                        />
+                      }
+                      onClick={() => toggleFavorite(item)}
+                      variant="ghost"
+                      _hover={{ bg: 'transparent' }}
+                      mr={2}
+                    />
+                  </Flex>
+                </ListItem>
+              );
+            })}
           </List>
         </>
       )}

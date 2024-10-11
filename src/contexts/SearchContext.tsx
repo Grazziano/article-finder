@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import { SearchPlatform } from '../interfaces/SearchPlatform';
 import { SearchHistory } from '../interfaces/SearchHistory';
+import { v4 as uuidv4 } from 'uuid';
 
 interface SearchContextProps {
   query: string;
@@ -73,7 +74,7 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
     setLoading(false);
 
     setHistory((prevHistory) => {
-      const newEntry = { query, platform, url: searchUrl };
+      const newEntry = { id: uuidv4(), query, platform, url: searchUrl };
       const updatedHistory = [newEntry, ...prevHistory];
       localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
       return updatedHistory;
@@ -89,13 +90,11 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
 
   const toggleFavorite = (item: SearchHistory) => {
     setFavorites((prevFavorites) => {
-      const isFavorite = prevFavorites.find((fav) => fav.query === item.query);
+      const isFavorite = prevFavorites.find((fav) => fav.id === item.id);
       let updatedFavorites;
 
       if (isFavorite) {
-        updatedFavorites = prevFavorites.filter(
-          (fav) => fav.query !== item.query
-        );
+        updatedFavorites = prevFavorites.filter((fav) => fav.id !== item.id);
       } else {
         updatedFavorites = [...prevFavorites, item];
       }
@@ -113,7 +112,7 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
   const removeHistoryItem = (itemToRemove: SearchHistory) => {
     setHistory((prevHistory) => {
       const updatedHistory = prevHistory.filter(
-        (item) => item.query !== itemToRemove.query
+        (item) => item.id !== itemToRemove.id
       );
       localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
       return updatedHistory;
