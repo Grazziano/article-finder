@@ -1,6 +1,6 @@
-import React, { createContext, useState, useEffect, ReactNode } from "react";
-import { SearchPlatform } from "../interfaces/SearchPlatform";
-import { SearchHistory } from "../interfaces/SearchHistory";
+import React, { createContext, useState, useEffect, ReactNode } from 'react';
+import { SearchPlatform } from '../interfaces/SearchPlatform';
+import { SearchHistory } from '../interfaces/SearchHistory';
 
 interface SearchContextProps {
   query: string;
@@ -25,8 +25,8 @@ export const SearchContext = createContext<SearchContextProps | undefined>(
 );
 
 export const SearchProvider = ({ children }: { children: ReactNode }) => {
-  const [query, setQuery] = useState<string>("");
-  const [platform, setPlatform] = useState<SearchPlatform>("arXiv");
+  const [query, setQuery] = useState<string>('');
+  const [platform, setPlatform] = useState<SearchPlatform>('arXiv');
   const [loading, setLoading] = useState<boolean>(false);
   const [history, setHistory] = useState<SearchHistory[]>([]);
   const [favorites, setFavorites] = useState<SearchHistory[]>([]);
@@ -37,52 +37,54 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
       `https://arxiv.org/search/?query=${encodeURIComponent(
         query
       )}&searchtype=all`,
-    "Google Scholar": (query: string) =>
+    'Google Scholar': (query: string) =>
       `https://scholar.google.com/scholar?q=${encodeURIComponent(query)}`,
     IEEE: (query: string) =>
       `https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=${encodeURIComponent(
         query
       )}`,
-    "ACM Digital Library": (query: string) =>
+    'ACM Digital Library': (query: string) =>
       `https://dl.acm.org/action/doSearch?AllField=${encodeURIComponent(
         query
       )}`,
     PubMed: (query: string) =>
       `https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(query)}`,
+    ScienceDirect: (query: string) =>
+      `https://www.sciencedirect.com/search?qs=${encodeURIComponent(query)}`,
   };
 
   useEffect(() => {
-    const savedHistory = localStorage.getItem("searchHistory");
+    const savedHistory = localStorage.getItem('searchHistory');
     if (savedHistory) setHistory(JSON.parse(savedHistory));
 
-    const savedFavorites = localStorage.getItem("favorites");
+    const savedFavorites = localStorage.getItem('favorites');
     if (savedFavorites) setFavorites(JSON.parse(savedFavorites));
   }, []);
 
   const searchArticles = () => {
     if (!query) {
-      alert("Por favor, insira um termo de busca.");
+      alert('Por favor, insira um termo de busca.');
       return;
     }
 
     setLoading(true);
     const searchUrl = platformUrls[platform](query);
-    window.open(searchUrl, "_blank");
+    window.open(searchUrl, '_blank');
     setLoading(false);
 
     setHistory((prevHistory) => {
       const newEntry = { query, platform, url: searchUrl };
       const updatedHistory = [newEntry, ...prevHistory];
-      localStorage.setItem("searchHistory", JSON.stringify(updatedHistory));
+      localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
       return updatedHistory;
     });
 
-    setQuery("");
+    setQuery('');
   };
 
   const clearHistory = () => {
     setHistory([]);
-    localStorage.removeItem("searchHistory");
+    localStorage.removeItem('searchHistory');
   };
 
   const toggleFavorite = (item: SearchHistory) => {
@@ -98,14 +100,14 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
         updatedFavorites = [...prevFavorites, item];
       }
 
-      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+      localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
       return updatedFavorites;
     });
   };
 
   const clearFavorites = () => {
     setFavorites([]);
-    localStorage.removeItem("favorites");
+    localStorage.removeItem('favorites');
   };
 
   const removeHistoryItem = (itemToRemove: SearchHistory) => {
@@ -113,7 +115,7 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
       const updatedHistory = prevHistory.filter(
         (item) => item.query !== itemToRemove.query
       );
-      localStorage.setItem("searchHistory", JSON.stringify(updatedHistory));
+      localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
       return updatedHistory;
     });
   };

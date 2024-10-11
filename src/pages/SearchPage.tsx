@@ -67,6 +67,7 @@ const SearchPage: React.FC = () => {
           <option value="IEEE">IEEE Xplore</option>
           <option value="ACM Digital Library">ACM Digital Library</option>
           <option value="PubMed">PubMed</option>
+          <option value="ScienceDirect">ScienceDirect</option>
         </Select>
       </FormControl>
 
