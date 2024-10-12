@@ -1,6 +1,6 @@
-# Buscar Artigos
+# Article Finder
 
-**Buscar Artigos** é uma aplicação que permite realizar buscas de artigos acadêmicos em diversas plataformas, como arXiv, Google Scholar, IEEE, ACM Digital Library e PubMed. A aplicação também permite gerenciar o histórico de pesquisas e artigos favoritos.
+**Article Finder** é uma aplicação que permite realizar buscas de artigos acadêmicos em diversas plataformas, como arXiv, Google Scholar, IEEE, ACM Digital Library e PubMed. A aplicação também permite gerenciar o histórico de pesquisas e artigos favoritos.
 
 ## Funcionalidades
 
@@ -33,7 +33,7 @@
 
 3. Inicie a aplicação:
    ```bash
-   npm run dev
+   npm start
    ```
 
 4. Acesse a aplicação em `http://localhost:3000`.
