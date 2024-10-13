@@ -89,7 +89,7 @@ export default function Navbar() {
           </HStack>
         </HStack>
         <Flex alignItems={'center'} gap={2}>
-          <Text>Busca de Artigos Acadêmicos</Text>
+          <Text>Article Finder</Text>
           <ToggleThemeButton />
         </Flex>
       </Flex>
