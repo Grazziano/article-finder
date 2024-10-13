@@ -22,12 +22,12 @@
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/Grazziano/buscar-artigos.git
+   git clone https://github.com/Grazziano/article-finder.git
    ```
 
 2. Instale as dependências:
    ```bash
-   cd buscar-artigos
+   cd article-finder
    npm install
    ```
 
