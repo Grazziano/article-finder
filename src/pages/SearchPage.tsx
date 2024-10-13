@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { SearchContext } from '../contexts/SearchContext';
 import {
   Button,
-  Input,
+  Textarea,
   Select,
   Wrap,
   WrapItem,
@@ -37,8 +37,7 @@ const SearchPage: React.FC = () => {
         <FormLabel fontSize="lg" color={textColor}>
           Termo de Busca
         </FormLabel>
-        <Input
-          type="text"
+        <Textarea
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Digite o termo de busca..."
@@ -46,6 +45,7 @@ const SearchPage: React.FC = () => {
           focusBorderColor="teal.400"
           bg={bg}
           shadow="sm"
+          rows={4}
         />
       </FormControl>
 
