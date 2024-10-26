@@ -27,7 +27,7 @@ export const SearchContext = createContext<SearchContextProps | undefined>(
 
 export const SearchProvider = ({ children }: { children: ReactNode }) => {
   const [query, setQuery] = useState<string>('');
-  const [platform, setPlatform] = useState<SearchPlatform>('arXiv');
+  const [platform, setPlatform] = useState<SearchPlatform>('ACM Digital Library');
   const [loading, setLoading] = useState<boolean>(false);
   const [history, setHistory] = useState<SearchHistory[]>([]);
   const [favorites, setFavorites] = useState<SearchHistory[]>([]);

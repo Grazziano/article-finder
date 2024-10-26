@@ -63,7 +63,7 @@ function SearchPage() {
           shadow="sm"
         >
           <option value="ACM Digital Library">ACM Digital Library</option>
-          <option value="arXiv">arXiv</option>
+          <option value="arXiv">Cornell University - arXiv</option>
           <option value="Google Scholar">Google Scholar</option>
           <option value="IEEE">IEEE Xplore</option>
           <option value="PubMed">PubMed</option>

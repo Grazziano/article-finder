@@ -3,4 +3,6 @@ export type SearchPlatform =
   | 'Google Scholar'
   | 'IEEE'
   | 'ACM Digital Library'
-  | 'PubMed';
+  | 'PubMed'
+  | 'Scopus'
+  | 'Web of Science';
