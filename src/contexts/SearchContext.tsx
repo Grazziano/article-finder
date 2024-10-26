@@ -34,6 +34,10 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
 
   // URLs de busca para cada plataforma
   const platformUrls = {
+    'ACM Digital Library': (query: string) =>
+      `https://dl.acm.org/action/doSearch?AllField=${encodeURIComponent(
+        query
+      )}`,
     arXiv: (query: string) =>
       `https://arxiv.org/search/?query=${encodeURIComponent(
         query
@@ -44,14 +48,18 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
       `https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=${encodeURIComponent(
         query
       )}`,
-    'ACM Digital Library': (query: string) =>
-      `https://dl.acm.org/action/doSearch?AllField=${encodeURIComponent(
-        query
-      )}`,
     PubMed: (query: string) =>
       `https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(query)}`,
     ScienceDirect: (query: string) =>
       `https://www.sciencedirect.com/search?qs=${encodeURIComponent(query)}`,
+    Scopus: (query: string) =>
+      `https://www.scopus.com/term/analyzer.uri?sid=your_sid_here&origin=resultslist&src=s&field1=ts&terms1=${encodeURIComponent(
+        query
+      )}`,
+    'Web of Science': (query: string) =>
+      `https://www.webofscience.com/wos/woscc/basic-search?WOS&search_mode=GeneralSearch&SID=your_sid_here&value(input1)=${encodeURIComponent(
+        query
+      )}`,
   };
 
   useEffect(() => {

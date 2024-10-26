@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { SearchPlatform } from '../interfaces/SearchPlatform';
 
-const SearchPage: React.FC = () => {
+function SearchPage() {
   const handlePlatformChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
@@ -62,12 +62,14 @@ const SearchPage: React.FC = () => {
           bg={bg}
           shadow="sm"
         >
+          <option value="ACM Digital Library">ACM Digital Library</option>
           <option value="arXiv">arXiv</option>
           <option value="Google Scholar">Google Scholar</option>
           <option value="IEEE">IEEE Xplore</option>
-          <option value="ACM Digital Library">ACM Digital Library</option>
           <option value="PubMed">PubMed</option>
           <option value="ScienceDirect">ScienceDirect</option>
+          <option value="Scopus">Scopus</option>
+          <option value="Web of Science">Web of Science</option>
         </Select>
       </FormControl>
 
@@ -86,6 +88,6 @@ const SearchPage: React.FC = () => {
       </Wrap>
     </Box>
   );
-};
+}
 
 export default SearchPage;
