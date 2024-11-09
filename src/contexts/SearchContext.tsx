@@ -27,7 +27,9 @@ export const SearchContext = createContext<SearchContextProps | undefined>(
 
 export const SearchProvider = ({ children }: { children: ReactNode }) => {
   const [query, setQuery] = useState<string>('');
-  const [platform, setPlatform] = useState<SearchPlatform>('ACM Digital Library');
+  const [platform, setPlatform] = useState<SearchPlatform>(
+    'ACM Digital Library'
+  );
   const [loading, setLoading] = useState<boolean>(false);
   const [history, setHistory] = useState<SearchHistory[]>([]);
   const [favorites, setFavorites] = useState<SearchHistory[]>([]);
@@ -60,6 +62,18 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
       `https://www.webofscience.com/wos/woscc/basic-search?WOS&search_mode=GeneralSearch&SID=your_sid_here&value(input1)=${encodeURIComponent(
         query
       )}`,
+    'Wiley Online Library': (query: string) =>
+      `https://onlinelibrary.wiley.com/action/doSearch?AllField=${encodeURIComponent(
+        query
+      )}`,
+    'Taylor and Francis Online': (query: string) =>
+      `https://www.tandfonline.com/action/doSearch?AllField=${encodeURIComponent(
+        query
+      )}`,
+    'Springer Nature Link': (query: string) =>
+      `https://link.springer.com/search?query=${encodeURIComponent(query)}`,
+    'sci-hub': (query: string) =>
+      `https://sci-hub.se/${encodeURIComponent(query)}`,
   };
 
   useEffect(() => {

@@ -70,6 +70,12 @@ function SearchPage() {
           <option value="ScienceDirect">ScienceDirect</option>
           <option value="Scopus">Scopus</option>
           <option value="Web of Science">Web of Science</option>
+          <option value="Wiley Online Library">Wiley Online Library</option>
+          <option value="Taylor and Francis Online">
+            Taylor and Francis Online
+          </option>
+          <option value="Springer Nature Link">Springer Nature Link</option>
+          <option value="sci-hub">sci-hub</option>
         </Select>
       </FormControl>
 
